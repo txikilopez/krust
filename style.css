@@ -1,0 +1,61 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: inline-block;
+    width: 100px;
+  }
+  
+  input, select, button {
+    margin: 5px;
+  }
+  
+  #availability-sections {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #availability-sections ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  #availability-sections li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .availability-options {
+    margin-left: 10px;
+  }
+  
+  button.availability-btn {
+    margin-right: 5px;
+  }
+  
+  @media (max-width: 600px) {
+    body {
+      margin: 10px;
+    }
+  
+    label {
+      width: auto;
+    }
+  
+    #availability-sections {
+      flex-direction: column;
+    }
+  }
+  

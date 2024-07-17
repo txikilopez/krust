@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soccer Game Schedule</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Soccer Game Schedule</h1>
+  <div id="game-info">
+    <!-- Placeholder for game details -->
+    <p>KRUST - Spring 2024 - Game #2 - Wed 03/20 - 8:00pm</p>
+  </div>
+  <h2>Player Availability</h2>
+  <div id="availability-sections">
+    <h3>Yes (<span id="yes-count">0</span>)</h3>
+    <ul id="yes-list"></ul>
+    <h3>Maybe (<span id="maybe-count">0</span>)</h3>
+    <ul id="maybe-list"></ul>
+    <h3>No</h3>
+    <ul id="no-list"></ul>
+    <h3>Not Yet Replied</h3>
+    <ul id="not-replied-list"></ul>
+  </div>
+  <h2>Add Extra Player</h2>
+  <form id="add-player-form">
+    <label for="new-player">Name:</label>
+    <input type="text" id="new-player" name="new-player" required>
+    <button type="submit">Add Player</button>
+  </form>
+  <script src="jsfile.js"></script>
+</body>
+</html>
