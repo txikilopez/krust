@@ -1,3 +1,19 @@
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAxj0Ob2lyPOXU-J3gPyNSupm54PO2rx4M",
+  authDomain: "krust-confirmation-db.firebaseapp.com",
+  databaseURL: "https://krust-confirmation-db.firebaseio.com",
+  projectId: "krust-confirmation-db-c8eaa",
+  storageBucket: "krust-confirmation-db.appspot.com",
+  messagingSenderId: "668897923400",
+  appId: "1:668897923400:web:6e859677454b11a7f5e37d",
+  measurementId: "G-RG8009HYN0"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 const fixedRoster = [
   'Jose S', 'Antonio T', 'Seth B', 'Nathan F', 'Christian P', 
   'Kerby', 'Issa', 'Georges', 'Joey', 'Gabe', 'JC'
@@ -14,28 +30,30 @@ const maybeCount = document.getElementById('maybe-count');
 let yesCounter = 0;
 let maybeCounter = 0;
 
-// Load saved data from Local Storage
+// Load saved data from Firebase
 function loadData() {
-  const savedData = JSON.parse(localStorage.getItem('playerAvailability')) || {};
+  database.ref('playerAvailability').once('value', snapshot => {
+    const savedData = snapshot.val() || {};
 
-  fixedRoster.forEach(name => {
-    const status = savedData[name] || 'Not Yet Replied';
-    const listItem = createPlayerListItem(name, status);
-    if (status === 'Yes') {
-      yesList.appendChild(listItem);
-      yesCounter++;
-    } else if (status === 'Maybe') {
-      maybeList.appendChild(listItem);
-      maybeCounter++;
-    } else if (status === 'No') {
-      noList.appendChild(listItem);
-    } else {
-      notRepliedList.appendChild(listItem);
-    }
+    fixedRoster.forEach(name => {
+      const status = savedData[name] || 'Not Yet Replied';
+      const listItem = createPlayerListItem(name, status);
+      if (status === 'Yes') {
+        yesList.appendChild(listItem);
+        yesCounter++;
+      } else if (status === 'Maybe') {
+        maybeList.appendChild(listItem);
+        maybeCounter++;
+      } else if (status === 'No') {
+        noList.appendChild(listItem);
+      } else {
+        notRepliedList.appendChild(listItem);
+      }
+    });
+
+    yesCount.textContent = yesCounter;
+    maybeCount.textContent = maybeCounter;
   });
-
-  yesCount.textContent = yesCounter;
-  maybeCount.textContent = maybeCounter;
 }
 
 // Function to create a list item with availability options
@@ -64,13 +82,10 @@ function createPlayerListItem(name, status) {
 
 // Function to update the list and counters based on availability
 function updateList(name, option, listItem) {
-  // Remove the item from all lists
-  yesList.removeChild(listItem);
-  maybeList.removeChild(listItem);
-  noList.removeChild(listItem);
-  notRepliedList.removeChild(listItem);
+  if (listItem.parentNode) {
+    listItem.parentNode.removeChild(listItem);
+  }
 
-  // Add the item to the correct list
   if (option === 'Yes') {
     yesList.appendChild(listItem);
     yesCounter++;
@@ -83,17 +98,17 @@ function updateList(name, option, listItem) {
     notRepliedList.appendChild(listItem);
   }
 
-  // Save the data and update the counters
   saveData(name, option);
+
   yesCount.textContent = yesCounter;
   maybeCount.textContent = maybeCounter;
 }
 
-// Save data to Local Storage
+// Save data to Firebase
 function saveData(name, status) {
-  const savedData = JSON.parse(localStorage.getItem('playerAvailability')) || {};
-  savedData[name] = status;
-  localStorage.setItem('playerAvailability', JSON.stringify(savedData));
+  const updates = {};
+  updates[`/playerAvailability/${name}`] = status;
+  database.ref().update(updates);
 }
 
 // Handle form submission for adding extra players
@@ -105,26 +120,6 @@ document.getElementById('add-player-form').addEventListener('submit', function(e
 
   saveData(newPlayer, 'Not Yet Replied');
 });
-
-// Function to reset all answers and move players back to "Not Yet Replied"
-function resetAnswers() {
-  localStorage.removeItem('playerAvailability');
-  yesList.innerHTML = '';
-  maybeList.innerHTML = '';
-  noList.innerHTML = '';
-  notRepliedList.innerHTML = '';
-  yesCounter = 0;
-  maybeCounter = 0;
-  yesCount.textContent = yesCounter;
-  maybeCount.textContent = maybeCounter;
-  loadData();
-}
-
-// Add reset button
-const resetButton = document.createElement('button');
-resetButton.textContent = 'Reset All Answers';
-resetButton.addEventListener('click', resetAnswers);
-document.body.appendChild(resetButton);
 
 // Load the data when the page loads
 window.onload = loadData;
