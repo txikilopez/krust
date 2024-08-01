@@ -1,61 +1,67 @@
 /* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Orbitron:wght@400..900&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+  font-family: Karla, Arial, sans-serif;
+  margin: 20px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+input, select, button {
+  margin: 5px;
+}
+
+#availability-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+#availability-sections ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#availability-sections li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.availability-options {
+  margin-left: 10px;
+}
+
+button.availability-btn {
+  margin-right: 5px;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 10px;
   }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  form {
-    margin-bottom: 20px;
-  }
-  
+
   label {
-    display: inline-block;
-    width: 100px;
+    width: auto;
   }
-  
-  input, select, button {
-    margin: 5px;
-  }
-  
+
   #availability-sections {
-    display: flex;
     flex-direction: column;
   }
-  
-  #availability-sections ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  #availability-sections li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .availability-options {
-    margin-left: 10px;
-  }
-  
-  button.availability-btn {
-    margin-right: 5px;
-  }
-  
-  @media (max-width: 600px) {
-    body {
-      margin: 10px;
-    }
-  
-    label {
-      width: auto;
-    }
-  
-    #availability-sections {
-      flex-direction: column;
-    }
-  }
-  
+}
+
+#total-count {
+  font-size: 1.2em;
+  color: #007BFF;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Soccer Game Schedule</title>
+  <title>LFG Krust</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Firebase Scripts -->
@@ -9,10 +9,11 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-  <h1>Soccer Game Schedule</h1>
+  <h1>9pm game 08/07</h1>
   <div id="game-info">
     <!-- Placeholder for game details -->
-    <p>KRUST - Spring 2024 - Game #2 - Wed 03/20 - 8:00pm</p>
+    <p>KRUST v River Old Boys Funtermediate FC</p>
+    <h3 id="total-count">Coming to play: 0 (0 yes, 0 maybes)</h3>
   </div>
   <h2>Player Availability</h2>
   <div id="availability-sections">
@@ -31,6 +32,8 @@
     <input type="text" id="new-player" name="new-player" required>
     <button type="submit">Add Player</button>
   </form>
+  <h2>reset list</h2>
+  <button id="reset-answers">Reset All Answers</button>
   <script src="jsfile.js"></script>
 </body>
 </html>
